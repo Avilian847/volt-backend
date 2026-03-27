@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { placeOrder, getOrders } = require('../controllers/orderController');
+const { verifyToken } = require('../middleware/auth');
 
-router.post('/', (req, res) => {
-  res.json({ message: 'place order route working' });
-});
-
-router.get('/', (req, res) => {
-  res.json({ message: 'get order history route working' });
-});
+router.post('/', verifyToken, placeOrder);
+router.get('/',  verifyToken, getOrders);
 
 module.exports = router;
