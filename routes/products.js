@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const { getProducts, getProductById, createProduct, updateProduct, deleteProduct } = require('../controllers/productController');
+const { verifyAdmin } = require('../middleware/auth');
 
-router.get('/', (req, res) => {
-  res.json({ message: 'get all products route working' });
-});
-
-router.get('/:id', (req, res) => {
-  res.json({ message: `get product ${req.params.id} route working` });
-});
+router.get('/',     getProducts);
+router.get('/:id',  getProductById);
+router.post('/',    verifyAdmin, createProduct);
+router.put('/:id',  verifyAdmin, updateProduct);
+router.delete('/:id', verifyAdmin, deleteProduct);
 
 module.exports = router;
